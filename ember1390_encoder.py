@@ -1,15 +1,62 @@
 import json
-import math
 import hashlib
 from typing import Any, Dict, List
 
 import numpy as np
 
+# =========================
+# NUMPY COMPAT PATCH
+# ember cũ dùng np.int / np.bool / np.float...
+# =========================
+if not hasattr(np, "int"):
+    np.int = int
+
+if not hasattr(np, "bool"):
+    np.bool = bool
+
+if not hasattr(np, "float"):
+    np.float = float
+
+if not hasattr(np, "object"):
+    np.object = object
+
+try:
+    import lief
+except ImportError:
+    lief = None
+
 try:
     import ember
-except ImportError:
+except ImportError as e:
     ember = None
+    EMBER_IMPORT_ERROR = e
+else:
+    EMBER_IMPORT_ERROR = None
 
+
+def _patch_lief_compat():
+    """
+    Patch các exception tên cũ mà ember cũ đang kỳ vọng,
+    để chạy được với bản lief mới hơn.
+    """
+    if lief is None:
+        return
+
+    fallback_exc = Exception
+    legacy_names = [
+        "bad_format",
+        "bad_file",
+        "pe_error",
+        "parser_error",
+        "read_out_of_bound",
+    ]
+
+    for name in legacy_names:
+        if not hasattr(lief, name):
+            setattr(lief, name, fallback_exc)
+
+
+_patch_lief_compat()
 
 # =========================
 # CONFIG DIMENSIONS
@@ -50,15 +97,6 @@ def _to_float(x, default=0.0):
         return float(default)
 
 
-def _to_int(x, default=0):
-    try:
-        if x is None:
-            return int(default)
-        return int(x)
-    except Exception:
-        return int(default)
-
-
 def _stable_hash(text: str, dim: int) -> int:
     h = hashlib.md5(text.encode("utf-8", errors="ignore")).hexdigest()
     return int(h, 16) % dim
@@ -72,29 +110,25 @@ def _hash_bag(items: List[str], dim: int) -> np.ndarray:
     return v
 
 
-def _hash_weighted_bag(counter_items: List[tuple], dim: int) -> np.ndarray:
-    v = np.zeros(dim, dtype=np.float32)
-    for key, weight in counter_items:
-        idx = _stable_hash(str(key), dim)
-        v[idx] += float(weight)
-    return v
-
-
 # =========================
 # RAW FEATURE EXTRACTION
 # =========================
 def extract_raw_features_from_exe(exe_path: str) -> Dict[str, Any]:
-    """
-    Trích raw feature EMBER-style từ file .exe
-    """
     if ember is None:
-        raise ImportError("Chưa cài thư viện ember. Hãy pip install ember")
+        raise ImportError(f"Không import được thư viện ember: {EMBER_IMPORT_ERROR}")
 
     with open(exe_path, "rb") as f:
         bytez = f.read()
 
-    extractor = ember.PEFeatureExtractor(feature_version=1)
-    raw_obj = extractor.raw_features(bytez)
+    try:
+        extractor = ember.PEFeatureExtractor(feature_version=1)
+        raw_obj = extractor.raw_features(bytez)
+    except Exception as e:
+        raise RuntimeError(
+            f"Không trích được raw features từ file PE. "
+            f"Có thể file không hợp lệ hoặc ember/lief/numpy chưa tương thích hoàn toàn. "
+            f"Chi tiết: {e}"
+        ) from e
 
     if isinstance(raw_obj, str):
         raw_obj = json.loads(raw_obj)
@@ -122,19 +156,6 @@ def encode_byteentropy(raw_obj: Dict[str, Any]) -> np.ndarray:
 
 
 def encode_strings(raw_obj: Dict[str, Any]) -> np.ndarray:
-    """
-    strings gồm:
-    - numstrings
-    - avlength
-    - printabledist (thường 96 chiều)
-    - printables
-    - entropy
-    - paths
-    - urls
-    - registry
-    - MZ
-    Tổng: 2 + 96 + 6 = 104
-    """
     s = raw_obj.get("strings", {}) or {}
     v = np.zeros(DIM_STRINGS, dtype=np.float32)
 
@@ -177,19 +198,12 @@ def encode_general(raw_obj: Dict[str, Any]) -> np.ndarray:
 
 
 def encode_header(raw_obj: Dict[str, Any]) -> np.ndarray:
-    """
-    Encode header thành 62 chiều:
-    - coff numeric fields
-    - optional numeric fields
-    - hashed categorical fields (machine/subsystem/magic/... nếu có)
-    """
     h = raw_obj.get("header", {}) or {}
     coff = h.get("coff", {}) or {}
     optional = h.get("optional", {}) or {}
 
     values = []
 
-    # COFF numeric-ish
     coff_num_keys = [
         "timestamp",
         "machine",
@@ -210,7 +224,6 @@ def encode_header(raw_obj: Dict[str, Any]) -> np.ndarray:
     for k in coff_num_keys:
         values.append(_to_float(coff.get(k, 0)))
 
-    # OPTIONAL numeric-ish
     opt_num_keys = [
         "sizeof_code",
         "sizeof_initialized_data",
@@ -243,7 +256,6 @@ def encode_header(raw_obj: Dict[str, Any]) -> np.ndarray:
     while len(values) < 40:
         values.append(0.0)
 
-    # hashed categorical
     cats = [
         f"coff_machine={coff.get('machine', '')}",
         f"coff_characteristics={coff.get('characteristics', '')}",
@@ -255,27 +267,17 @@ def encode_header(raw_obj: Dict[str, Any]) -> np.ndarray:
 
     hv = _hash_bag(cats, 22)
     v = np.array(values, dtype=np.float32)
-    return np.concatenate([v, hv], axis=0)  # 40 + 22 = 62
+    return np.concatenate([v, hv], axis=0)
 
 
 def encode_section(raw_obj: Dict[str, Any]) -> np.ndarray:
-    """
-    Encode section thành 200 chiều:
-    - entry info numeric
-    - aggregate từ sections
-    - hashed section names/properties
-    """
     sec = raw_obj.get("section", {}) or {}
     entry = sec.get("entry", "") or ""
     sections = sec.get("sections", []) or []
 
     num = []
-
-    # entry hash as one numeric bucket count later
     num.append(float(len(str(entry))))
-
-    # aggregate thống kê section
-    num.append(float(len(sections)))  # số section
+    num.append(float(len(sections)))
 
     sizes = []
     entropies = []
@@ -319,7 +321,6 @@ def encode_section(raw_obj: Dict[str, Any]) -> np.ndarray:
     num.extend(add_stats(vsizes))
     num.extend(add_stats(entropies))
 
-    # 1 + 1 + 6 + 6 + 6 = 20
     while len(num) < 20:
         num.append(0.0)
 
@@ -328,14 +329,6 @@ def encode_section(raw_obj: Dict[str, Any]) -> np.ndarray:
 
 
 def encode_imports(raw_obj: Dict[str, Any]) -> np.ndarray:
-    """
-    imports là dict:
-    {
-      "KERNEL32.dll": ["CreateFileW", ...],
-      ...
-    }
-    -> hash bag 374 chiều
-    """
     imports_obj = raw_obj.get("imports", {}) or {}
     tokens = []
 
@@ -382,7 +375,6 @@ def extract_feature1390_from_exe(exe_path: str) -> np.ndarray:
 
 
 if __name__ == "__main__":
-    exe_path = r"B:\Code\V3.0\Zalo.exe"
-    x = extract_feature1390_from_exe(exe_path)
+    x = extract_feature1390_from_exe("sample.exe")
     print("Feature shape:", x.shape)
     print("First 30 values:", x[0][:30])

@@ -10,8 +10,12 @@ from werkzeug.utils import secure_filename
 # =========================
 # CONFIG
 # =========================
-MODEL_PATH = r"B:\Code\V3.0\data\ember\ember2017_xgb_full_gpu_manual.json"
-UPLOAD_DIR = r"B:\Code\V3.0\uploads"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Trong zip của bạn đang có file này
+MODEL_PATH = os.path.join(BASE_DIR, "ember2017_xgb_subset_gpu_manual.json")
+UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
+
 ALLOWED_EXTENSIONS = {"exe"}
 EXPECTED_DIM = 1390
 
@@ -127,8 +131,7 @@ def allowed_file(filename: str) -> bool:
 
 def try_extract_with_custom_pipeline(file_path: str) -> np.ndarray:
     """
-    Ưu tiên dùng pipeline preprocess do bạn tự định nghĩa,
-    để khớp 100% với lúc train model 1390 features.
+    Ưu tiên pipeline tự định nghĩa để khớp với lúc train.
     """
     try:
         from inference_preprocess import extract_features_for_model
@@ -148,20 +151,18 @@ def try_extract_with_custom_pipeline(file_path: str) -> np.ndarray:
 
 def try_extract_with_ember(file_path: str) -> np.ndarray:
     """
-    Fallback: thử dùng thư viện ember để trích feature trực tiếp từ PE file.
-    Lưu ý: chỉ đúng nếu cách train trước đó cũng dùng đúng pipeline tương thích.
+    Fallback: dùng trực tiếp ember nếu pipeline custom không có.
     """
     try:
         import ember
     except ImportError as e:
         raise ImportError(
-            "Chưa cài thư viện ember. Hãy cài bằng: pip install ember"
+            "Không import được ember. Hãy cài đúng môi trường hoặc dùng pipeline custom."
         ) from e
 
     with open(file_path, "rb") as f:
         bytez = f.read()
 
-    # EMBER 2017 thường dùng feature_version=1
     extractor = ember.PEFeatureExtractor(feature_version=1)
     feats = extractor.feature_vector(bytez)
 
@@ -173,10 +174,6 @@ def try_extract_with_ember(file_path: str) -> np.ndarray:
 
 
 def extract_features(file_path: str) -> np.ndarray:
-    """
-    Ưu tiên custom pipeline.
-    Nếu không có, fallback sang ember.
-    """
     feats = try_extract_with_custom_pipeline(file_path)
 
     if feats is None:
@@ -185,8 +182,8 @@ def extract_features(file_path: str) -> np.ndarray:
     if feats.shape[1] != EXPECTED_DIM:
         raise ValueError(
             f"Feature dimension mismatch: model cần {EXPECTED_DIM} features "
-            f"nhưng extractor tạo ra {feats.shape[1]} features.\\n"
-            f"Bạn cần sửa file inference_preprocess.py để preprocess giống hệt lúc train."
+            f"nhưng extractor tạo ra {feats.shape[1]} features.\n"
+            f"Bạn cần sửa preprocess để giống hệt lúc train."
         )
 
     return feats
@@ -239,7 +236,7 @@ def index():
             result = pred_result
 
         except Exception as e:
-            error = f"{str(e)}\\n\\n{traceback.format_exc()}"
+            error = f"{str(e)}\n\n{traceback.format_exc()}"
 
     return render_template_string(
         HTML_PAGE,
