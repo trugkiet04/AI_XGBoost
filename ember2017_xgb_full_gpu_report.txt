@@ -1,0 +1,71 @@
+EMBER 2017 FULL TRAIN REPORT
+============================================================
+
+Data directory : B:\Code\V3.0\data\ember
+Model output   : B:\Code\V3.0\data\ember\ember2017_xgb_full_gpu_manual.json
+Random state   : 42
+Train files    : 6 files (0 -> 5)
+Train shape    : (600000, 1390)
+Train split    : X_train=(480000, 1390), X_val=(120000, 1390)
+Test shape     : (200000, 1390)
+Best iteration : 299
+Best score     : 0.9994308798611111
+Elapsed sec    : 665.79
+
+PARAMS
+------------------------------------------------------------
+objective: binary:logistic
+eval_metric: ['logloss', 'auc']
+max_depth: 8
+eta: 0.05
+subsample: 0.8
+colsample_bytree: 0.8
+min_child_weight: 1
+tree_method: hist
+device: cuda
+seed: 42
+
+===== VALIDATION =====
+Accuracy : 0.990625
+Precision: 0.9920601755119097
+Recall   : 0.9891666666666666
+F1-score : 0.99061130815773
+ROC-AUC  : 0.9994308798611111
+
+Confusion Matrix:
+[[59525   475]
+ [  650 59350]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.9892    0.9921    0.9906     60000
+           1     0.9921    0.9892    0.9906     60000
+
+    accuracy                         0.9906    120000
+   macro avg     0.9906    0.9906    0.9906    120000
+weighted avg     0.9906    0.9906    0.9906    120000
+
+
+===== TEST =====
+Accuracy : 0.989875
+Precision: 0.9936016927804927
+Recall   : 0.9861
+F1-score : 0.9898366332906723
+ROC-AUC  : 0.9993984433
+
+Confusion Matrix:
+[[99365   635]
+ [ 1390 98610]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.9862    0.9937    0.9899    100000
+           1     0.9936    0.9861    0.9898    100000
+
+    accuracy                         0.9899    200000
+   macro avg     0.9899    0.9899    0.9899    200000
+weighted avg     0.9899    0.9899    0.9899    200000
+
+

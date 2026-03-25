@@ -1,0 +1,7 @@
+flask
+numpy
+xgboost
+werkzeug
+ember
+lief
+pefile
