@@ -1,0 +1,150 @@
+PS B:\Code\V3.0> python train_ember2017_full_gpu.py
+[1] Load full train files (0 -> 5)...
+[+] Loading B:\Code\V3.0\data\ember\train_features_0.jsonl
+    processed 50000 lines... kept_total=50000
+    kept from this file: 50000
+[+] Loading B:\Code\V3.0\data\ember\train_features_1.jsonl
+    processed 50000 lines... kept_total=81784
+    processed 150000 lines... kept_total=146863
+    kept from this file: 110000
+[+] Loading B:\Code\V3.0\data\ember\train_features_2.jsonl
+    processed 50000 lines... kept_total=195410
+    processed 100000 lines... kept_total=226693
+    processed 150000 lines... kept_total=257614
+    kept from this file: 110000
+[+] Loading B:\Code\V3.0\data\ember\train_features_3.jsonl
+    kept from this file: 110000
+[+] Loading B:\Code\V3.0\data\ember\train_features_4.jsonl
+    processed 50000 lines... kept_total=412258
+    processed 100000 lines... kept_total=444457
+    kept from this file: 110000
+[+] Loading B:\Code\V3.0\data\ember\train_features_5.jsonl
+    processed 50000 lines... kept_total=520813
+    processed 100000 lines... kept_total=552724
+    kept from this file: 110000
+Full train shape: (600000, 1390) (600000,)
+[2] Split train / validation...
+X_train: (480000, 1390) y_train: (480000,)
+X_val  : (120000, 1390) y_val  : (120000,)
+[3] Load official test...
+[+] Loading B:\Code\V3.0\data\ember\test_features.jsonl
+    processed 50000 lines... kept_total=50000
+    processed 100000 lines... kept_total=100000
+    processed 150000 lines... kept_total=150000
+    processed 200000 lines... kept_total=200000
+    kept from this file: 200000
+X_test : (200000, 1390) y_test : (200000,)
+[4] Create DMatrix...
+[5] Train full model on GPU...
+[0]     train-logloss:0.65483   train-auc:0.96707       val-logloss:0.65500     val-auc:0.96568
+[10]    train-logloss:0.40513   train-auc:0.98857       val-logloss:0.40633     val-auc:0.98827
+[20]    train-logloss:0.27610   train-auc:0.99240       val-logloss:0.27783     val-auc:0.99204
+[30]    train-logloss:0.20081   train-auc:0.99509       val-logloss:0.20323     val-auc:0.99469
+[40]    train-logloss:0.15269   train-auc:0.99652       val-logloss:0.15558     val-auc:0.99606
+[50]    train-logloss:0.12299   train-auc:0.99716       val-logloss:0.12614     val-auc:0.99674
+[60]    train-logloss:0.10181   train-auc:0.99774       val-logloss:0.10539     val-auc:0.99729
+[70]    train-logloss:0.08787   train-auc:0.99807       val-logloss:0.09180     val-auc:0.99762
+[80]    train-logloss:0.07644   train-auc:0.99840       val-logloss:0.08063     val-auc:0.99796
+[90]    train-logloss:0.06906   train-auc:0.99859       val-logloss:0.07347     val-auc:0.99815
+[100]   train-logloss:0.06294   train-auc:0.99876       val-logloss:0.06755     val-auc:0.99832
+[110]   train-logloss:0.05798   train-auc:0.99891       val-logloss:0.06278     val-auc:0.99848
+[120]   train-logloss:0.05417   train-auc:0.99901       val-logloss:0.05916     val-auc:0.99859
+[130]   train-logloss:0.04988   train-auc:0.99914       val-logloss:0.05520     val-auc:0.99872
+[140]   train-logloss:0.04650   train-auc:0.99924       val-logloss:0.05208     val-auc:0.99882
+[150]   train-logloss:0.04377   train-auc:0.99932       val-logloss:0.04956     val-auc:0.99890
+[160]   train-logloss:0.04127   train-auc:0.99939       val-logloss:0.04729     val-auc:0.99898
+[170]   train-logloss:0.03928   train-auc:0.99944       val-logloss:0.04546     val-auc:0.99904
+[180]   train-logloss:0.03757   train-auc:0.99949       val-logloss:0.04387     val-auc:0.99909
+[190]   train-logloss:0.03560   train-auc:0.99954       val-logloss:0.04211     val-auc:0.99914
+[200]   train-logloss:0.03404   train-auc:0.99958       val-logloss:0.04074     val-auc:0.99918
+[210]   train-logloss:0.03245   train-auc:0.99962       val-logloss:0.03938     val-auc:0.99922
+[220]   train-logloss:0.03115   train-auc:0.99965       val-logloss:0.03825     val-auc:0.99925
+[230]   train-logloss:0.02960   train-auc:0.99969       val-logloss:0.03688     val-auc:0.99929
+[240]   train-logloss:0.02875   train-auc:0.99970       val-logloss:0.03616     val-auc:0.99931
+[250]   train-logloss:0.02750   train-auc:0.99973       val-logloss:0.03511     val-auc:0.99934
+[260]   train-logloss:0.02663   train-auc:0.99975       val-logloss:0.03441     val-auc:0.99936
+[270]   train-logloss:0.02549   train-auc:0.99978       val-logloss:0.03351     val-auc:0.99938
+[280]   train-logloss:0.02461   train-auc:0.99979       val-logloss:0.03280     val-auc:0.99940
+[290]   train-logloss:0.02367   train-auc:0.99981       val-logloss:0.03203     val-auc:0.99942
+[299]   train-logloss:0.02296   train-auc:0.99982       val-logloss:0.03150     val-auc:0.99943
+[6] Predict validation probabilities...
+[7] Search best threshold by F1 on validation...
+Best threshold: 0.51
+Best threshold row:
+  threshold: 0.51
+  accuracy: 0.9907333333333334
+  precision: 0.9924239890289995
+  recall: 0.9890166666666667
+  f1: 0.9907173982002437
+  tpr: 0.9890166666666667
+  fpr: 0.00755
+  tnr: 0.99245
+  fnr: 0.010983333333333333
+  tn: 59547
+  fp: 453
+  fn: 659
+  tp: 59341
+
+Top 10 thresholds by F1:
+threshold  accuracy  precision   recall       f1      tpr      fpr      tnr      fnr       tn     fp     fn       tp
+--------------------------------------------------------------------------------------------------------------------
+     0.51  0.990733   0.992424 0.989017 0.990717 0.989017 0.007550 0.992450 0.010983    59547    453    659    59341
+     0.52  0.990700   0.992687 0.988683 0.990681 0.988683 0.007283 0.992717 0.011317    59563    437    679    59321
+     0.53  0.990658   0.992951 0.988333 0.990637 0.988333 0.007017 0.992983 0.011667    59579    421    700    59300
+     0.50  0.990625   0.992060 0.989167 0.990611 0.989167 0.007917 0.992083 0.010833    59525    475    650    59350
+     0.54  0.990617   0.993148 0.988050 0.990593 0.988050 0.006817 0.993183 0.011950    59591    409    717    59283
+     0.55  0.990592   0.993379 0.987767 0.990565 0.987767 0.006583 0.993417 0.012233    59605    395    734    59266
+     0.56  0.990575   0.993660 0.987450 0.990545 0.987450 0.006300 0.993700 0.012550    59622    378    753    59247
+     0.57  0.990567   0.994008 0.987083 0.990534 0.987083 0.005950 0.994050 0.012917    59643    357    775    59225
+     0.58  0.990550   0.994274 0.986783 0.990514 0.986783 0.005683 0.994317 0.013217    59659    341    793    59207
+     0.49  0.990525   0.991648 0.989383 0.990514 0.989383 0.008333 0.991667 0.010617    59500    500    637    59363
+
+===== VALIDATION (best threshold) =====
+Accuracy : 0.9907333333333334
+Precision: 0.9924239890289995
+Recall   : 0.9890166666666667
+F1-score : 0.9907173982002437
+ROC-AUC  : 0.9994308798611111
+
+Confusion Matrix:
+[[59547   453]
+ [  659 59341]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.9891    0.9925    0.9907     60000
+           1     0.9924    0.9890    0.9907     60000
+
+    accuracy                         0.9907    120000
+   macro avg     0.9907    0.9907    0.9907    120000
+weighted avg     0.9907    0.9907    0.9907    120000
+
+
+[8] Evaluate official test with best threshold...
+===== TEST (best threshold) =====
+Accuracy : 0.989845
+Precision: 0.9938899587622629
+Recall   : 0.98575
+F1-score : 0.9898032442853485
+ROC-AUC  : 0.9993984433
+
+Confusion Matrix:
+[[99394   606]
+ [ 1425 98575]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.9859    0.9939    0.9899    100000
+           1     0.9939    0.9858    0.9898    100000
+
+    accuracy                         0.9898    200000
+   macro avg     0.9899    0.9898    0.9898    200000
+weighted avg     0.9899    0.9898    0.9898    200000
+
+
+[9] Save model...
+Saved model to: B:\Code\V3.0\data\ember\ember2017_xgb_full_gpu_manual.json
+[10] Write report to txt...
+Saved report to: B:\Code\V3.0\data\ember\ember2017_xgb_full_gpu_report.txt
