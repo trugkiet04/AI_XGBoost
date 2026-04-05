@@ -1,0 +1,618 @@
+PS B:\Code\V3.0> & C:/Users/ASUS/AppData/Local/Programs/Python/Python314/python.exe b:/Code/V3.0/train_ember2017_full_gpu_tuned.py
+[1] Load full train files (0 -> 5)...
+[+] Loading B:\Code\V3.0\data\ember\train_features_0.jsonl
+    processed=50000, kept_file=50000, skipped_file=0, kept_total=50000
+    done: seen=50000, kept=50000, skipped=0
+[+] Loading B:\Code\V3.0\data\ember\train_features_1.jsonl
+    processed=50000, kept_file=31784, skipped_file=0, kept_total=81784
+    processed=150000, kept_file=96863, skipped_file=0, kept_total=146863
+    done: seen=170000, kept=110000, skipped=0
+[+] Loading B:\Code\V3.0\data\ember\train_features_2.jsonl
+    processed=50000, kept_file=35410, skipped_file=0, kept_total=195410
+    processed=100000, kept_file=66693, skipped_file=0, kept_total=226693
+    processed=150000, kept_file=97614, skipped_file=0, kept_total=257614
+    done: seen=170000, kept=110000, skipped=0
+[+] Loading B:\Code\V3.0\data\ember\train_features_3.jsonl
+    done: seen=170000, kept=110000, skipped=0
+[+] Loading B:\Code\V3.0\data\ember\train_features_4.jsonl
+    processed=50000, kept_file=32258, skipped_file=0, kept_total=412258
+    processed=100000, kept_file=64457, skipped_file=0, kept_total=444457
+    done: seen=170000, kept=110000, skipped=0
+[+] Loading B:\Code\V3.0\data\ember\train_features_5.jsonl
+    processed=50000, kept_file=30813, skipped_file=0, kept_total=520813
+    processed=100000, kept_file=62724, skipped_file=0, kept_total=552724
+    done: seen=170000, kept=110000, skipped=0
+[LOAD SUMMARY] total_seen=900000, total_kept=600000, total_skipped=0, X.shape=(600000, 1390), y.shape=(600000,)
+Full train shape: (600000, 1390) (600000,)
+[2] Split train / validation...
+X_train: (480000, 1390) y_train: (480000,)
+X_val  : (120000, 1390) y_val  : (120000,)
+[3] Load official test...
+[+] Loading B:\Code\V3.0\data\ember\test_features.jsonl
+    processed=50000, kept_file=50000, skipped_file=0, kept_total=50000
+    processed=100000, kept_file=100000, skipped_file=0, kept_total=100000
+    processed=150000, kept_file=150000, skipped_file=0, kept_total=150000
+    processed=200000, kept_file=200000, skipped_file=0, kept_total=200000
+    done: seen=200000, kept=200000, skipped=0
+[LOAD SUMMARY] total_seen=200000, total_kept=200000, total_skipped=0, X.shape=(200000, 1390), y.shape=(200000,)
+X_test : (200000, 1390) y_test : (200000,)
+[4] Create DMatrix...
+[5] Total tuning candidates: 16
+
+==========================================================================================
+[TRIAL 1/16] params = {'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.0, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65903   train-auc:0.94972       val-logloss:0.65912     val-auc:0.94920
+[50]    train-logloss:0.16523   train-auc:0.99324       val-logloss:0.16740     val-auc:0.99280
+[100]   train-logloss:0.09784   train-auc:0.99678       val-logloss:0.10063     val-auc:0.99640
+[150]   train-logloss:0.07358   train-auc:0.99797       val-logloss:0.07678     val-auc:0.99763
+[200]   train-logloss:0.06002   train-auc:0.99857       val-logloss:0.06365     val-auc:0.99824
+[250]   train-logloss:0.05141   train-auc:0.99892       val-logloss:0.05542     val-auc:0.99860
+[300]   train-logloss:0.04509   train-auc:0.99916       val-logloss:0.04946     val-auc:0.99884
+[350]   train-logloss:0.04005   train-auc:0.99933       val-logloss:0.04485     val-auc:0.99902
+[400]   train-logloss:0.03614   train-auc:0.99946       val-logloss:0.04142     val-auc:0.99914
+[450]   train-logloss:0.03264   train-auc:0.99956       val-logloss:0.03837     val-auc:0.99924
+[500]   train-logloss:0.02975   train-auc:0.99964       val-logloss:0.03590     val-auc:0.99931
+[550]   train-logloss:0.02735   train-auc:0.99970       val-logloss:0.03388     val-auc:0.99937
+[600]   train-logloss:0.02504   train-auc:0.99976       val-logloss:0.03203     val-auc:0.99942
+[650]   train-logloss:0.02334   train-auc:0.99979       val-logloss:0.03068     val-auc:0.99946
+[700]   train-logloss:0.02170   train-auc:0.99983       val-logloss:0.02943     val-auc:0.99949
+[750]   train-logloss:0.02020   train-auc:0.99986       val-logloss:0.02832     val-auc:0.99952
+[799]   train-logloss:0.01898   train-auc:0.99988       val-logloss:0.02744     val-auc:0.99954
+Trial 1 result:
+  best_iteration : 799
+  best_score     : 0.9995413852777778
+  threshold      : 0.55
+  val_accuracy   : 0.9917833333333334
+  val_precision  : 0.9943208470146754
+  val_recall     : 0.9892166666666666
+  val_f1         : 0.9917621896200247
+  val_auc        : 0.9995413852777778
+  val_fpr        : 0.00565
+
+==========================================================================================
+[TRIAL 2/16] params = {'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.0, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65904   train-auc:0.94972       val-logloss:0.65912     val-auc:0.94920
+[50]    train-logloss:0.16523   train-auc:0.99324       val-logloss:0.16740     val-auc:0.99280
+[100]   train-logloss:0.09895   train-auc:0.99674       val-logloss:0.10162     val-auc:0.99638
+[150]   train-logloss:0.07332   train-auc:0.99798       val-logloss:0.07650     val-auc:0.99764
+[200]   train-logloss:0.05985   train-auc:0.99859       val-logloss:0.06349     val-auc:0.99826
+[250]   train-logloss:0.05099   train-auc:0.99894       val-logloss:0.05510     val-auc:0.99861
+[300]   train-logloss:0.04447   train-auc:0.99919       val-logloss:0.04902     val-auc:0.99886
+[350]   train-logloss:0.03993   train-auc:0.99934       val-logloss:0.04487     val-auc:0.99902
+[400]   train-logloss:0.03599   train-auc:0.99947       val-logloss:0.04131     val-auc:0.99914
+[450]   train-logloss:0.03267   train-auc:0.99956       val-logloss:0.03845     val-auc:0.99923
+[500]   train-logloss:0.02982   train-auc:0.99964       val-logloss:0.03605     val-auc:0.99931
+[550]   train-logloss:0.02730   train-auc:0.99970       val-logloss:0.03395     val-auc:0.99937
+[600]   train-logloss:0.02502   train-auc:0.99976       val-logloss:0.03212     val-auc:0.99942
+[650]   train-logloss:0.02317   train-auc:0.99980       val-logloss:0.03063     val-auc:0.99946
+[700]   train-logloss:0.02165   train-auc:0.99983       val-logloss:0.02945     val-auc:0.99949
+[750]   train-logloss:0.02030   train-auc:0.99985       val-logloss:0.02840     val-auc:0.99951
+[799]   train-logloss:0.01897   train-auc:0.99988       val-logloss:0.02742     val-auc:0.99954
+Trial 2 result:
+  best_iteration : 799
+  best_score     : 0.9995370148611111
+  threshold      : 0.54
+  val_accuracy   : 0.9918333333333333
+  val_precision  : 0.9941393168117884
+  val_recall     : 0.9895
+  val_f1         : 0.9918142332108253
+  val_auc        : 0.9995370148611111
+  val_fpr        : 0.005833333333333334
+
+==========================================================================================
+[TRIAL 3/16] params = {'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.1, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65903   train-auc:0.94972       val-logloss:0.65912     val-auc:0.94920
+[50]    train-logloss:0.16521   train-auc:0.99324       val-logloss:0.16739     val-auc:0.99280
+[100]   train-logloss:0.09899   train-auc:0.99672       val-logloss:0.10170     val-auc:0.99634
+[150]   train-logloss:0.07324   train-auc:0.99800       val-logloss:0.07637     val-auc:0.99766
+[200]   train-logloss:0.05966   train-auc:0.99858       val-logloss:0.06328     val-auc:0.99826
+[250]   train-logloss:0.05129   train-auc:0.99892       val-logloss:0.05520     val-auc:0.99861
+[300]   train-logloss:0.04472   train-auc:0.99917       val-logloss:0.04912     val-auc:0.99886
+[350]   train-logloss:0.03922   train-auc:0.99935       val-logloss:0.04402     val-auc:0.99904
+[400]   train-logloss:0.03532   train-auc:0.99948       val-logloss:0.04058     val-auc:0.99916
+[450]   train-logloss:0.03203   train-auc:0.99958       val-logloss:0.03773     val-auc:0.99925
+[500]   train-logloss:0.02959   train-auc:0.99964       val-logloss:0.03569     val-auc:0.99931
+[550]   train-logloss:0.02744   train-auc:0.99970       val-logloss:0.03388     val-auc:0.99937
+[600]   train-logloss:0.02531   train-auc:0.99975       val-logloss:0.03218     val-auc:0.99941
+[650]   train-logloss:0.02346   train-auc:0.99979       val-logloss:0.03075     val-auc:0.99945
+[700]   train-logloss:0.02174   train-auc:0.99983       val-logloss:0.02939     val-auc:0.99949
+[750]   train-logloss:0.02027   train-auc:0.99986       val-logloss:0.02824     val-auc:0.99952
+[799]   train-logloss:0.01898   train-auc:0.99988       val-logloss:0.02729     val-auc:0.99954
+Trial 3 result:
+  best_iteration : 799
+  best_score     : 0.9995405272222222
+  threshold      : 0.54
+  val_accuracy   : 0.9916666666666667
+  val_precision  : 0.9940545972198962
+  val_recall     : 0.98925
+  val_f1         : 0.9916464789908946
+  val_auc        : 0.9995405272222223
+  val_fpr        : 0.005916666666666666
+
+==========================================================================================
+[TRIAL 4/16] params = {'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.1, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65904   train-auc:0.94972       val-logloss:0.65912     val-auc:0.94920
+[50]    train-logloss:0.16522   train-auc:0.99324       val-logloss:0.16740     val-auc:0.99280
+[100]   train-logloss:0.09869   train-auc:0.99676       val-logloss:0.10139     val-auc:0.99639
+[150]   train-logloss:0.07331   train-auc:0.99800       val-logloss:0.07655     val-auc:0.99765
+[200]   train-logloss:0.05989   train-auc:0.99859       val-logloss:0.06348     val-auc:0.99827
+[250]   train-logloss:0.05142   train-auc:0.99893       val-logloss:0.05540     val-auc:0.99862
+[300]   train-logloss:0.04478   train-auc:0.99917       val-logloss:0.04920     val-auc:0.99886
+[350]   train-logloss:0.03984   train-auc:0.99934       val-logloss:0.04469     val-auc:0.99903
+[400]   train-logloss:0.03596   train-auc:0.99946       val-logloss:0.04122     val-auc:0.99915
+[450]   train-logloss:0.03226   train-auc:0.99958       val-logloss:0.03802     val-auc:0.99925
+[500]   train-logloss:0.02962   train-auc:0.99965       val-logloss:0.03574     val-auc:0.99932
+[550]   train-logloss:0.02736   train-auc:0.99970       val-logloss:0.03388     val-auc:0.99937
+[600]   train-logloss:0.02526   train-auc:0.99975       val-logloss:0.03221     val-auc:0.99942
+[650]   train-logloss:0.02326   train-auc:0.99980       val-logloss:0.03061     val-auc:0.99946
+[700]   train-logloss:0.02165   train-auc:0.99983       val-logloss:0.02935     val-auc:0.99950
+[750]   train-logloss:0.02020   train-auc:0.99986       val-logloss:0.02822     val-auc:0.99952
+[799]   train-logloss:0.01881   train-auc:0.99988       val-logloss:0.02720     val-auc:0.99955
+Trial 4 result:
+  best_iteration : 799
+  best_score     : 0.9995466429166666
+  threshold      : 0.57
+  val_accuracy   : 0.9916583333333333
+  val_precision  : 0.9947505241090147
+  val_recall     : 0.9885333333333334
+  val_f1         : 0.991632183908046
+  val_auc        : 0.9995466429166666
+  val_fpr        : 0.005216666666666666
+
+==========================================================================================
+[TRIAL 5/16] params = {'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.0, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65904   train-auc:0.94970       val-logloss:0.65912     val-auc:0.94922
+[50]    train-logloss:0.16552   train-auc:0.99321       val-logloss:0.16765     val-auc:0.99279
+[100]   train-logloss:0.09761   train-auc:0.99678       val-logloss:0.10028     val-auc:0.99642
+[150]   train-logloss:0.07324   train-auc:0.99797       val-logloss:0.07633     val-auc:0.99764
+[200]   train-logloss:0.06012   train-auc:0.99855       val-logloss:0.06365     val-auc:0.99823
+[250]   train-logloss:0.05152   train-auc:0.99890       val-logloss:0.05545     val-auc:0.99859
+[300]   train-logloss:0.04520   train-auc:0.99915       val-logloss:0.04952     val-auc:0.99884
+[350]   train-logloss:0.04030   train-auc:0.99932       val-logloss:0.04503     val-auc:0.99900
+[400]   train-logloss:0.03658   train-auc:0.99944       val-logloss:0.04170     val-auc:0.99912
+[450]   train-logloss:0.03327   train-auc:0.99954       val-logloss:0.03876     val-auc:0.99922
+[500]   train-logloss:0.03077   train-auc:0.99961       val-logloss:0.03667     val-auc:0.99928
+[550]   train-logloss:0.02843   train-auc:0.99967       val-logloss:0.03472     val-auc:0.99934
+[600]   train-logloss:0.02636   train-auc:0.99972       val-logloss:0.03303     val-auc:0.99939
+[650]   train-logloss:0.02451   train-auc:0.99976       val-logloss:0.03155     val-auc:0.99943
+[700]   train-logloss:0.02278   train-auc:0.99980       val-logloss:0.03020     val-auc:0.99947
+[750]   train-logloss:0.02130   train-auc:0.99983       val-logloss:0.02903     val-auc:0.99950
+[799]   train-logloss:0.02001   train-auc:0.99986       val-logloss:0.02803     val-auc:0.99952
+Trial 5 result:
+  best_iteration : 799
+  best_score     : 0.99952035125
+  threshold      : 0.51
+  val_accuracy   : 0.9917333333333334
+  val_precision  : 0.9932459542597298
+  val_recall     : 0.9902
+  val_f1         : 0.9917206383120786
+  val_auc        : 0.9995203512499998
+  val_fpr        : 0.006733333333333333
+
+==========================================================================================
+[TRIAL 6/16] params = {'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.0, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65904   train-auc:0.94970       val-logloss:0.65912     val-auc:0.94922
+[50]    train-logloss:0.16553   train-auc:0.99321       val-logloss:0.16766     val-auc:0.99279
+[100]   train-logloss:0.09814   train-auc:0.99676       val-logloss:0.10087     val-auc:0.99638
+[150]   train-logloss:0.07353   train-auc:0.99796       val-logloss:0.07669     val-auc:0.99761
+[200]   train-logloss:0.06010   train-auc:0.99856       val-logloss:0.06367     val-auc:0.99823
+[250]   train-logloss:0.05161   train-auc:0.99890       val-logloss:0.05552     val-auc:0.99859
+[300]   train-logloss:0.04574   train-auc:0.99913       val-logloss:0.05001     val-auc:0.99882
+[350]   train-logloss:0.04081   train-auc:0.99930       val-logloss:0.04544     val-auc:0.99899
+[400]   train-logloss:0.03695   train-auc:0.99942       val-logloss:0.04195     val-auc:0.99912
+[450]   train-logloss:0.03374   train-auc:0.99952       val-logloss:0.03911     val-auc:0.99921
+[500]   train-logloss:0.03105   train-auc:0.99960       val-logloss:0.03681     val-auc:0.99929
+[550]   train-logloss:0.02869   train-auc:0.99966       val-logloss:0.03481     val-auc:0.99934
+[600]   train-logloss:0.02653   train-auc:0.99972       val-logloss:0.03300     val-auc:0.99940
+[650]   train-logloss:0.02457   train-auc:0.99976       val-logloss:0.03141     val-auc:0.99945
+[700]   train-logloss:0.02313   train-auc:0.99980       val-logloss:0.03032     val-auc:0.99947
+[750]   train-logloss:0.02164   train-auc:0.99983       val-logloss:0.02916     val-auc:0.99950
+[799]   train-logloss:0.02031   train-auc:0.99985       val-logloss:0.02816     val-auc:0.99953
+Trial 6 result:
+  best_iteration : 799
+  best_score     : 0.9995272295833333
+  threshold      : 0.53
+  val_accuracy   : 0.9915333333333334
+  val_precision  : 0.9936395286555972
+  val_recall     : 0.9894
+  val_f1         : 0.9915152324959915
+  val_auc        : 0.9995272295833333
+  val_fpr        : 0.006333333333333333
+
+==========================================================================================
+[TRIAL 7/16] params = {'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.1, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65904   train-auc:0.94970       val-logloss:0.65912     val-auc:0.94922
+[50]    train-logloss:0.16552   train-auc:0.99321       val-logloss:0.16765     val-auc:0.99279
+[100]   train-logloss:0.09761   train-auc:0.99678       val-logloss:0.10028     val-auc:0.99642
+[150]   train-logloss:0.07327   train-auc:0.99797       val-logloss:0.07636     val-auc:0.99764
+[200]   train-logloss:0.06018   train-auc:0.99855       val-logloss:0.06367     val-auc:0.99823
+[250]   train-logloss:0.05212   train-auc:0.99888       val-logloss:0.05600     val-auc:0.99857
+[300]   train-logloss:0.04573   train-auc:0.99912       val-logloss:0.05003     val-auc:0.99881
+[350]   train-logloss:0.04098   train-auc:0.99929       val-logloss:0.04560     val-auc:0.99898
+[400]   train-logloss:0.03713   train-auc:0.99942       val-logloss:0.04218     val-auc:0.99910
+[450]   train-logloss:0.03391   train-auc:0.99952       val-logloss:0.03935     val-auc:0.99919
+[500]   train-logloss:0.03114   train-auc:0.99959       val-logloss:0.03695     val-auc:0.99927
+[550]   train-logloss:0.02887   train-auc:0.99966       val-logloss:0.03505     val-auc:0.99933
+[600]   train-logloss:0.02675   train-auc:0.99971       val-logloss:0.03332     val-auc:0.99938
+[650]   train-logloss:0.02497   train-auc:0.99975       val-logloss:0.03187     val-auc:0.99942
+[700]   train-logloss:0.02324   train-auc:0.99979       val-logloss:0.03051     val-auc:0.99946
+[750]   train-logloss:0.02171   train-auc:0.99982       val-logloss:0.02928     val-auc:0.99949
+[799]   train-logloss:0.02041   train-auc:0.99985       val-logloss:0.02828     val-auc:0.99951
+Trial 7 result:
+  best_iteration : 799
+  best_score     : 0.9995144180555555
+  threshold      : 0.53
+  val_accuracy   : 0.9915083333333333
+  val_precision  : 0.9934905202563631
+  val_recall     : 0.9895
+  val_f1         : 0.9914912449168747
+  val_auc        : 0.9995144180555557
+  val_fpr        : 0.006483333333333333
+
+==========================================================================================
+[TRIAL 8/16] params = {'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.1, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65904   train-auc:0.94970       val-logloss:0.65912     val-auc:0.94922
+[50]    train-logloss:0.16553   train-auc:0.99321       val-logloss:0.16766     val-auc:0.99279
+[100]   train-logloss:0.09814   train-auc:0.99676       val-logloss:0.10087     val-auc:0.99638
+[150]   train-logloss:0.07353   train-auc:0.99796       val-logloss:0.07669     val-auc:0.99761
+[200]   train-logloss:0.06036   train-auc:0.99854       val-logloss:0.06387     val-auc:0.99823
+[250]   train-logloss:0.05183   train-auc:0.99890       val-logloss:0.05574     val-auc:0.99859
+[300]   train-logloss:0.04521   train-auc:0.99915       val-logloss:0.04952     val-auc:0.99884
+[350]   train-logloss:0.04024   train-auc:0.99932       val-logloss:0.04488     val-auc:0.99901
+[400]   train-logloss:0.03656   train-auc:0.99944       val-logloss:0.04159     val-auc:0.99912
+[450]   train-logloss:0.03336   train-auc:0.99953       val-logloss:0.03871     val-auc:0.99922
+[500]   train-logloss:0.03075   train-auc:0.99961       val-logloss:0.03652     val-auc:0.99929
+[550]   train-logloss:0.02825   train-auc:0.99967       val-logloss:0.03441     val-auc:0.99935
+[600]   train-logloss:0.02610   train-auc:0.99973       val-logloss:0.03268     val-auc:0.99940
+[650]   train-logloss:0.02422   train-auc:0.99977       val-logloss:0.03115     val-auc:0.99945
+[700]   train-logloss:0.02257   train-auc:0.99981       val-logloss:0.02984     val-auc:0.99948
+[750]   train-logloss:0.02115   train-auc:0.99983       val-logloss:0.02875     val-auc:0.99951
+[799]   train-logloss:0.01982   train-auc:0.99986       val-logloss:0.02777     val-auc:0.99953
+Trial 8 result:
+  best_iteration : 799
+  best_score     : 0.9995339933333334
+  threshold      : 0.5
+  val_accuracy   : 0.9917583333333333
+  val_precision  : 0.9930649554653164
+  val_recall     : 0.9904333333333334
+  val_f1         : 0.9917473986365267
+  val_auc        : 0.9995339933333334
+  val_fpr        : 0.0069166666666666664
+
+==========================================================================================
+[TRIAL 9/16] params = {'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.0, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65483   train-auc:0.96707       val-logloss:0.65500     val-auc:0.96568
+[50]    train-logloss:0.12299   train-auc:0.99716       val-logloss:0.12614     val-auc:0.99674
+[100]   train-logloss:0.06294   train-auc:0.99876       val-logloss:0.06755     val-auc:0.99832
+[150]   train-logloss:0.04377   train-auc:0.99932       val-logloss:0.04956     val-auc:0.99890
+[200]   train-logloss:0.03404   train-auc:0.99958       val-logloss:0.04074     val-auc:0.99918
+[250]   train-logloss:0.02750   train-auc:0.99973       val-logloss:0.03511     val-auc:0.99934
+[300]   train-logloss:0.02287   train-auc:0.99983       val-logloss:0.03142     val-auc:0.99943
+[350]   train-logloss:0.01942   train-auc:0.99988       val-logloss:0.02870     val-auc:0.99950
+[400]   train-logloss:0.01646   train-auc:0.99993       val-logloss:0.02640     val-auc:0.99955
+[450]   train-logloss:0.01432   train-auc:0.99995       val-logloss:0.02484     val-auc:0.99959
+[500]   train-logloss:0.01261   train-auc:0.99997       val-logloss:0.02360     val-auc:0.99961
+[550]   train-logloss:0.01123   train-auc:0.99998       val-logloss:0.02261     val-auc:0.99963
+[600]   train-logloss:0.00969   train-auc:0.99999       val-logloss:0.02161     val-auc:0.99965
+[650]   train-logloss:0.00835   train-auc:0.99999       val-logloss:0.02067     val-auc:0.99967
+[700]   train-logloss:0.00732   train-auc:1.00000       val-logloss:0.01999     val-auc:0.99968
+[750]   train-logloss:0.00645   train-auc:1.00000       val-logloss:0.01943     val-auc:0.99969
+[799]   train-logloss:0.00577   train-auc:1.00000       val-logloss:0.01897     val-auc:0.99970
+Trial 9 result:
+  best_iteration : 799
+  best_score     : 0.9997021305555556
+  threshold      : 0.46
+  val_accuracy   : 0.9940083333333334
+  val_precision  : 0.9950396659707724
+  val_recall     : 0.9929666666666667
+  val_f1         : 0.9940020855057351
+  val_auc        : 0.9997021305555557
+  val_fpr        : 0.00495
+
+==========================================================================================
+[TRIAL 10/16] params = {'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.0, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65483   train-auc:0.96706       val-logloss:0.65500     val-auc:0.96569
+[50]    train-logloss:0.12336   train-auc:0.99712       val-logloss:0.12646     val-auc:0.99673
+[100]   train-logloss:0.06362   train-auc:0.99873       val-logloss:0.06819     val-auc:0.99831
+[150]   train-logloss:0.04376   train-auc:0.99931       val-logloss:0.04948     val-auc:0.99891
+[200]   train-logloss:0.03347   train-auc:0.99959       val-logloss:0.04017     val-auc:0.99920
+[250]   train-logloss:0.02723   train-auc:0.99974       val-logloss:0.03480     val-auc:0.99935
+[300]   train-logloss:0.02257   train-auc:0.99983       val-logloss:0.03104     val-auc:0.99945
+[350]   train-logloss:0.01916   train-auc:0.99989       val-logloss:0.02835     val-auc:0.99952
+[400]   train-logloss:0.01648   train-auc:0.99992       val-logloss:0.02628     val-auc:0.99957
+[450]   train-logloss:0.01433   train-auc:0.99995       val-logloss:0.02468     val-auc:0.99960
+[500]   train-logloss:0.01254   train-auc:0.99997       val-logloss:0.02337     val-auc:0.99963
+[550]   train-logloss:0.01105   train-auc:0.99998       val-logloss:0.02232     val-auc:0.99965
+[600]   train-logloss:0.00976   train-auc:0.99998       val-logloss:0.02146     val-auc:0.99967
+[650]   train-logloss:0.00847   train-auc:0.99999       val-logloss:0.02061     val-auc:0.99968
+[700]   train-logloss:0.00737   train-auc:0.99999       val-logloss:0.01988     val-auc:0.99970
+[750]   train-logloss:0.00649   train-auc:1.00000       val-logloss:0.01928     val-auc:0.99971
+[799]   train-logloss:0.00571   train-auc:1.00000       val-logloss:0.01877     val-auc:0.99972
+Trial 10 result:
+  best_iteration : 797
+  best_score     : 0.9997179113888889
+  threshold      : 0.52
+  val_accuracy   : 0.9941333333333333
+  val_precision  : 0.996001606049453
+  val_recall     : 0.99225
+  val_f1         : 0.99412226359644
+  val_auc        : 0.9997179036111111
+  val_fpr        : 0.0039833333333333335
+
+==========================================================================================
+[TRIAL 11/16] params = {'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.1, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65483   train-auc:0.96707       val-logloss:0.65500     val-auc:0.96568
+[50]    train-logloss:0.12306   train-auc:0.99714       val-logloss:0.12618     val-auc:0.99672
+[100]   train-logloss:0.06308   train-auc:0.99875       val-logloss:0.06767     val-auc:0.99831
+[150]   train-logloss:0.04482   train-auc:0.99928       val-logloss:0.05032     val-auc:0.99888
+[200]   train-logloss:0.03456   train-auc:0.99956       val-logloss:0.04095     val-auc:0.99918
+[250]   train-logloss:0.02785   train-auc:0.99973       val-logloss:0.03524     val-auc:0.99935
+[300]   train-logloss:0.02290   train-auc:0.99982       val-logloss:0.03125     val-auc:0.99945
+[350]   train-logloss:0.01950   train-auc:0.99988       val-logloss:0.02854     val-auc:0.99952
+[400]   train-logloss:0.01648   train-auc:0.99992       val-logloss:0.02623     val-auc:0.99957
+[450]   train-logloss:0.01427   train-auc:0.99995       val-logloss:0.02463     val-auc:0.99960
+[500]   train-logloss:0.01255   train-auc:0.99997       val-logloss:0.02343     val-auc:0.99963
+[550]   train-logloss:0.01109   train-auc:0.99998       val-logloss:0.02240     val-auc:0.99965
+[600]   train-logloss:0.00966   train-auc:0.99999       val-logloss:0.02145     val-auc:0.99966
+[650]   train-logloss:0.00832   train-auc:0.99999       val-logloss:0.02057     val-auc:0.99968
+[700]   train-logloss:0.00732   train-auc:0.99999       val-logloss:0.01988     val-auc:0.99969
+[750]   train-logloss:0.00653   train-auc:1.00000       val-logloss:0.01936     val-auc:0.99970
+[799]   train-logloss:0.00584   train-auc:1.00000       val-logloss:0.01898     val-auc:0.99971
+Trial 11 result:
+  best_iteration : 796
+  best_score     : 0.9997066330555555
+  threshold      : 0.48
+  val_accuracy   : 0.9938833333333333
+  val_precision  : 0.995303202513873
+  val_recall     : 0.99245
+  val_f1         : 0.9938745535267216
+  val_auc        : 0.9997060952777778
+  val_fpr        : 0.004683333333333334
+
+==========================================================================================
+[TRIAL 12/16] params = {'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.1, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65483   train-auc:0.96706       val-logloss:0.65500     val-auc:0.96569
+[50]    train-logloss:0.12311   train-auc:0.99712       val-logloss:0.12619     val-auc:0.99672
+[100]   train-logloss:0.06344   train-auc:0.99873       val-logloss:0.06796     val-auc:0.99831
+[150]   train-logloss:0.04456   train-auc:0.99929       val-logloss:0.05021     val-auc:0.99888
+[200]   train-logloss:0.03431   train-auc:0.99957       val-logloss:0.04092     val-auc:0.99918
+[250]   train-logloss:0.02757   train-auc:0.99973       val-logloss:0.03521     val-auc:0.99934
+[300]   train-logloss:0.02283   train-auc:0.99983       val-logloss:0.03132     val-auc:0.99944
+[350]   train-logloss:0.01940   train-auc:0.99989       val-logloss:0.02867     val-auc:0.99951
+[400]   train-logloss:0.01648   train-auc:0.99993       val-logloss:0.02640     val-auc:0.99956
+[450]   train-logloss:0.01429   train-auc:0.99995       val-logloss:0.02479     val-auc:0.99959
+[500]   train-logloss:0.01243   train-auc:0.99997       val-logloss:0.02351     val-auc:0.99962
+[550]   train-logloss:0.01089   train-auc:0.99998       val-logloss:0.02235     val-auc:0.99964
+[600]   train-logloss:0.00948   train-auc:0.99999       val-logloss:0.02143     val-auc:0.99966
+[650]   train-logloss:0.00823   train-auc:0.99999       val-logloss:0.02060     val-auc:0.99968
+[700]   train-logloss:0.00718   train-auc:1.00000       val-logloss:0.01990     val-auc:0.99969
+[750]   train-logloss:0.00632   train-auc:1.00000       val-logloss:0.01933     val-auc:0.99970
+[799]   train-logloss:0.00558   train-auc:1.00000       val-logloss:0.01886     val-auc:0.99971
+Trial 12 result:
+  best_iteration : 799
+  best_score     : 0.9997077834722222
+  threshold      : 0.5
+  val_accuracy   : 0.9940333333333333
+  val_precision  : 0.9957021973979063
+  val_recall     : 0.99235
+  val_f1         : 0.994023272508723
+  val_auc        : 0.9997077834722221
+  val_fpr        : 0.0042833333333333334
+
+==========================================================================================
+[TRIAL 13/16] params = {'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.0, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65484   train-auc:0.96711       val-logloss:0.65501     val-auc:0.96584
+[50]    train-logloss:0.12385   train-auc:0.99707       val-logloss:0.12690     val-auc:0.99668
+[100]   train-logloss:0.06437   train-auc:0.99866       val-logloss:0.06875     val-auc:0.99826
+[150]   train-logloss:0.04413   train-auc:0.99928       val-logloss:0.04964     val-auc:0.99889
+[200]   train-logloss:0.03452   train-auc:0.99955       val-logloss:0.04096     val-auc:0.99917
+[250]   train-logloss:0.02829   train-auc:0.99971       val-logloss:0.03552     val-auc:0.99932
+[300]   train-logloss:0.02401   train-auc:0.99980       val-logloss:0.03198     val-auc:0.99942
+[350]   train-logloss:0.02063   train-auc:0.99986       val-logloss:0.02924     val-auc:0.99949
+[400]   train-logloss:0.01788   train-auc:0.99990       val-logloss:0.02708     val-auc:0.99954
+[450]   train-logloss:0.01579   train-auc:0.99993       val-logloss:0.02550     val-auc:0.99958
+[500]   train-logloss:0.01399   train-auc:0.99995       val-logloss:0.02421     val-auc:0.99960
+[550]   train-logloss:0.01254   train-auc:0.99996       val-logloss:0.02317     val-auc:0.99963
+[600]   train-logloss:0.01122   train-auc:0.99998       val-logloss:0.02228     val-auc:0.99964
+[650]   train-logloss:0.00998   train-auc:0.99998       val-logloss:0.02144     val-auc:0.99966
+[700]   train-logloss:0.00896   train-auc:0.99999       val-logloss:0.02077     val-auc:0.99967
+[750]   train-logloss:0.00813   train-auc:0.99999       val-logloss:0.02021     val-auc:0.99968
+[799]   train-logloss:0.00739   train-auc:0.99999       val-logloss:0.01972     val-auc:0.99969
+Trial 13 result:
+  best_iteration : 795
+  best_score     : 0.9996920929166667
+  threshold      : 0.52
+  val_accuracy   : 0.9939
+  val_precision  : 0.9959001305264568
+  val_recall     : 0.9918833333333333
+  val_f1         : 0.993887673474841
+  val_auc        : 0.9996920026388888
+  val_fpr        : 0.004083333333333333
+
+==========================================================================================
+[TRIAL 14/16] params = {'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.0, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65485   train-auc:0.96710       val-logloss:0.65501     val-auc:0.96585
+[50]    train-logloss:0.12370   train-auc:0.99705       val-logloss:0.12670     val-auc:0.99667
+[100]   train-logloss:0.06384   train-auc:0.99869       val-logloss:0.06823     val-auc:0.99829
+[150]   train-logloss:0.04444   train-auc:0.99926       val-logloss:0.04973     val-auc:0.99889
+[200]   train-logloss:0.03389   train-auc:0.99957       val-logloss:0.04016     val-auc:0.99920
+[250]   train-logloss:0.02787   train-auc:0.99971       val-logloss:0.03500     val-auc:0.99935
+[300]   train-logloss:0.02370   train-auc:0.99980       val-logloss:0.03153     val-auc:0.99944
+[350]   train-logloss:0.02049   train-auc:0.99986       val-logloss:0.02892     val-auc:0.99951
+[400]   train-logloss:0.01798   train-auc:0.99990       val-logloss:0.02701     val-auc:0.99955
+[450]   train-logloss:0.01587   train-auc:0.99993       val-logloss:0.02545     val-auc:0.99959
+[500]   train-logloss:0.01405   train-auc:0.99995       val-logloss:0.02417     val-auc:0.99961
+[550]   train-logloss:0.01258   train-auc:0.99996       val-logloss:0.02309     val-auc:0.99964
+[600]   train-logloss:0.01115   train-auc:0.99998       val-logloss:0.02213     val-auc:0.99966
+[650]   train-logloss:0.00978   train-auc:0.99998       val-logloss:0.02118     val-auc:0.99968
+[700]   train-logloss:0.00883   train-auc:0.99999       val-logloss:0.02053     val-auc:0.99969
+[750]   train-logloss:0.00795   train-auc:0.99999       val-logloss:0.01999     val-auc:0.99970
+[799]   train-logloss:0.00715   train-auc:1.00000       val-logloss:0.01945     val-auc:0.99971
+Trial 14 result:
+  best_iteration : 799
+  best_score     : 0.9997057997222222
+  threshold      : 0.51
+  val_accuracy   : 0.9937833333333334
+  val_precision  : 0.9954679242758713
+  val_recall     : 0.9920833333333333
+  val_f1         : 0.9937727470032388
+  val_auc        : 0.9997057997222222
+  val_fpr        : 0.004516666666666667
+
+==========================================================================================
+[TRIAL 15/16] params = {'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.1, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65484   train-auc:0.96711       val-logloss:0.65501     val-auc:0.96584
+[50]    train-logloss:0.12384   train-auc:0.99707       val-logloss:0.12690     val-auc:0.99668
+[100]   train-logloss:0.06439   train-auc:0.99866       val-logloss:0.06878     val-auc:0.99825
+[150]   train-logloss:0.04490   train-auc:0.99925       val-logloss:0.05040     val-auc:0.99886
+[200]   train-logloss:0.03551   train-auc:0.99952       val-logloss:0.04186     val-auc:0.99914
+[250]   train-logloss:0.02905   train-auc:0.99969       val-logloss:0.03617     val-auc:0.99931
+[300]   train-logloss:0.02447   train-auc:0.99979       val-logloss:0.03230     val-auc:0.99942
+[350]   train-logloss:0.02093   train-auc:0.99985       val-logloss:0.02948     val-auc:0.99949
+[400]   train-logloss:0.01836   train-auc:0.99989       val-logloss:0.02753     val-auc:0.99954
+[450]   train-logloss:0.01624   train-auc:0.99992       val-logloss:0.02591     val-auc:0.99957
+[500]   train-logloss:0.01451   train-auc:0.99994       val-logloss:0.02460     val-auc:0.99960
+[550]   train-logloss:0.01302   train-auc:0.99996       val-logloss:0.02353     val-auc:0.99962
+[600]   train-logloss:0.01156   train-auc:0.99997       val-logloss:0.02255     val-auc:0.99964
+[650]   train-logloss:0.01026   train-auc:0.99998       val-logloss:0.02167     val-auc:0.99966
+[700]   train-logloss:0.00918   train-auc:0.99999       val-logloss:0.02091     val-auc:0.99968
+[750]   train-logloss:0.00831   train-auc:0.99999       val-logloss:0.02033     val-auc:0.99969
+[799]   train-logloss:0.00751   train-auc:0.99999       val-logloss:0.01979     val-auc:0.99970
+Trial 15 result:
+  best_iteration : 799
+  best_score     : 0.9996959438888889
+  threshold      : 0.52
+  val_accuracy   : 0.9937833333333334
+  val_precision  : 0.9956005352960856
+  val_recall     : 0.99195
+  val_f1         : 0.993771915177826
+  val_auc        : 0.9996959438888888
+  val_fpr        : 0.004383333333333334
+
+==========================================================================================
+[TRIAL 16/16] params = {'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.1, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+[0]     train-logloss:0.65485   train-auc:0.96710       val-logloss:0.65501     val-auc:0.96585
+[50]    train-logloss:0.12371   train-auc:0.99705       val-logloss:0.12670     val-auc:0.99667
+[100]   train-logloss:0.06368   train-auc:0.99871       val-logloss:0.06805     val-auc:0.99831
+[150]   train-logloss:0.04464   train-auc:0.99926       val-logloss:0.05005     val-auc:0.99888
+[200]   train-logloss:0.03500   train-auc:0.99954       val-logloss:0.04123     val-auc:0.99917
+[250]   train-logloss:0.02900   train-auc:0.99969       val-logloss:0.03600     val-auc:0.99932
+[300]   train-logloss:0.02437   train-auc:0.99979       val-logloss:0.03221     val-auc:0.99942
+[350]   train-logloss:0.02102   train-auc:0.99985       val-logloss:0.02954     val-auc:0.99949
+[400]   train-logloss:0.01823   train-auc:0.99990       val-logloss:0.02735     val-auc:0.99954
+[450]   train-logloss:0.01616   train-auc:0.99992       val-logloss:0.02581     val-auc:0.99957
+[500]   train-logloss:0.01436   train-auc:0.99995       val-logloss:0.02455     val-auc:0.99960
+[550]   train-logloss:0.01281   train-auc:0.99996       val-logloss:0.02345     val-auc:0.99962
+[600]   train-logloss:0.01141   train-auc:0.99997       val-logloss:0.02250     val-auc:0.99964
+[650]   train-logloss:0.01013   train-auc:0.99998       val-logloss:0.02167     val-auc:0.99966
+[700]   train-logloss:0.00902   train-auc:0.99999       val-logloss:0.02093     val-auc:0.99967
+[750]   train-logloss:0.00817   train-auc:0.99999       val-logloss:0.02034     val-auc:0.99968
+[799]   train-logloss:0.00734   train-auc:0.99999       val-logloss:0.01981     val-auc:0.99969
+Trial 16 result:
+  best_iteration : 799
+  best_score     : 0.9996917823611111
+  threshold      : 0.49
+  val_accuracy   : 0.9937666666666667
+  val_precision  : 0.9951199946520489
+  val_recall     : 0.9924
+  val_f1         : 0.9937581361193631
+  val_auc        : 0.9996917823611111
+  val_fpr        : 0.004866666666666667
+
+==========================================================================================
+[6] Best trial: 10
+Best params:
+  objective: binary:logistic
+  eval_metric: ['logloss', 'auc']
+  tree_method: hist
+  device: cuda
+  seed: 42
+  max_depth: 8
+  eta: 0.05
+  subsample: 0.8
+  colsample_bytree: 0.8
+  min_child_weight: 1
+  gamma: 0.0
+  reg_alpha: 0.1
+  reg_lambda: 1.0
+  max_bin: 256
+
+Best threshold: 0.52
+Best threshold row:
+  threshold: 0.52
+  accuracy: 0.9941333333333333
+  precision: 0.996001606049453
+  recall: 0.99225
+  f1: 0.99412226359644
+  tpr: 0.99225
+  fpr: 0.0039833333333333335
+  tnr: 0.9960166666666667
+  fnr: 0.00775
+  tn: 59761
+  fp: 239
+  fn: 465
+  tp: 59535
+
+Top 10 thresholds by F1:
+threshold  accuracy  precision   recall       f1      tpr      fpr      tnr      fnr       tn     fp     fn       tp
+--------------------------------------------------------------------------------------------------------------------
+     0.52  0.994133   0.996002 0.992250 0.994122 0.992250 0.003983 0.996017 0.007750    59761    239    465    59535
+     0.51  0.994092   0.995786 0.992383 0.994082 0.992383 0.004200 0.995800 0.007617    59748    252    457    59543
+     0.50  0.994067   0.995586 0.992533 0.994058 0.992533 0.004400 0.995600 0.007467    59736    264    448    59552
+     0.53  0.994058   0.996051 0.992050 0.994046 0.992050 0.003933 0.996067 0.007950    59764    236    477    59523
+     0.45  0.994000   0.994808 0.993183 0.993995 0.993183 0.005183 0.994817 0.006817    59689    311    409    59591
+     0.54  0.994008   0.996200 0.991800 0.993995 0.991800 0.003783 0.996217 0.008200    59773    227    492    59508
+     0.49  0.993992   0.995370 0.992600 0.993983 0.992600 0.004617 0.995383 0.007400    59723    277    444    59556
+     0.46  0.993983   0.994907 0.993050 0.993978 0.993050 0.005083 0.994917 0.006950    59695    305    417    59583
+     0.48  0.993983   0.995205 0.992750 0.993976 0.992750 0.004783 0.995217 0.007250    59713    287    435    59565
+     0.47  0.993958   0.995023 0.992883 0.993952 0.992883 0.004967 0.995033 0.007117    59702    298    427    59573
+
+===== VALIDATION (best tuned model) =====
+Accuracy : 0.9941333333333333
+Precision: 0.996001606049453
+Recall   : 0.99225
+F1-score : 0.99412226359644
+ROC-AUC  : 0.9997179036111111
+
+Confusion Matrix:
+[[59761   239]
+ [  465 59535]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.9923    0.9960    0.9941     60000
+           1     0.9960    0.9922    0.9941     60000
+
+    accuracy                         0.9941    120000
+   macro avg     0.9941    0.9941    0.9941    120000
+weighted avg     0.9941    0.9941    0.9941    120000
+
+
+[7] Evaluate official test with best tuned model...
+===== TEST (best tuned model) =====
+Accuracy : 0.99325
+Precision: 0.9965070864873571
+Recall   : 0.98997
+F1-score : 0.9932277871418251
+ROC-AUC  : 0.9996300275
+
+Confusion Matrix:
+[[99653   347]
+ [ 1003 98997]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.9900    0.9965    0.9933    100000
+           1     0.9965    0.9900    0.9932    100000
+
+    accuracy                         0.9932    200000
+   macro avg     0.9933    0.9932    0.9932    200000
+weighted avg     0.9933    0.9932    0.9932    200000
+
+
+[8] Save best model...
+Saved model to: B:\Code\V3.0\data\ember\ember2017_xgb_full_gpu_tuned_16trial_fixed.json
+[9] Write report to txt...
+Saved report to: B:\Code\V3.0\data\ember\ember2017_xgb_full_gpu_tuned_16trial_fixed_report.txt

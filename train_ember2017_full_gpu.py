@@ -263,6 +263,90 @@ def metrics_to_text(name, metrics):
     return "\n".join(lines)
 
 
+def compute_confusion_stats(y_true, y_pred):
+    tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
+
+    tpr = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+    fpr = fp / (fp + tn) if (fp + tn) > 0 else 0.0
+    tnr = tn / (tn + fp) if (tn + fp) > 0 else 0.0
+    fnr = fn / (fn + tp) if (fn + tp) > 0 else 0.0
+
+    return tn, fp, fn, tp, tpr, fpr, tnr, fnr
+
+
+def search_best_threshold(y_true, y_prob, thresholds=None):
+    """
+    Tìm threshold tốt nhất theo F1 trên validation.
+    Nếu F1 bằng nhau thì ưu tiên recall cao hơn, rồi precision cao hơn.
+    """
+    if thresholds is None:
+        thresholds = np.round(np.arange(0.01, 1.00, 0.01), 2)
+
+    rows = []
+
+    for thr in thresholds:
+        y_pred = (y_prob >= thr).astype(np.int32)
+
+        acc = accuracy_score(y_true, y_pred)
+        prec = precision_score(y_true, y_pred, zero_division=0)
+        rec = recall_score(y_true, y_pred, zero_division=0)
+        f1 = f1_score(y_true, y_pred, zero_division=0)
+
+        tn, fp, fn, tp, tpr, fpr, tnr, fnr = compute_confusion_stats(y_true, y_pred)
+
+        row = {
+            "threshold": float(thr),
+            "accuracy": float(acc),
+            "precision": float(prec),
+            "recall": float(rec),
+            "f1": float(f1),
+            "tpr": float(tpr),
+            "fpr": float(fpr),
+            "tnr": float(tnr),
+            "fnr": float(fnr),
+            "tn": int(tn),
+            "fp": int(fp),
+            "fn": int(fn),
+            "tp": int(tp),
+        }
+        rows.append(row)
+
+    best = max(rows, key=lambda r: (r["f1"], r["recall"], r["precision"]))
+    top10 = sorted(rows, key=lambda r: (r["f1"], r["recall"], r["precision"]), reverse=True)[:10]
+
+    return best, top10, rows
+
+
+def threshold_rows_to_text(rows):
+    lines = []
+    header = (
+        f"{'threshold':>9} {'accuracy':>9} {'precision':>10} {'recall':>8} "
+        f"{'f1':>8} {'tpr':>8} {'fpr':>8} {'tnr':>8} {'fnr':>8} "
+        f"{'tn':>8} {'fp':>6} {'fn':>6} {'tp':>8}"
+    )
+    lines.append(header)
+    lines.append("-" * len(header))
+
+    for r in rows:
+        lines.append(
+            f"{r['threshold']:>9.2f} "
+            f"{r['accuracy']:>9.6f} "
+            f"{r['precision']:>10.6f} "
+            f"{r['recall']:>8.6f} "
+            f"{r['f1']:>8.6f} "
+            f"{r['tpr']:>8.6f} "
+            f"{r['fpr']:>8.6f} "
+            f"{r['tnr']:>8.6f} "
+            f"{r['fnr']:>8.6f} "
+            f"{r['tn']:>8d} "
+            f"{r['fp']:>6d} "
+            f"{r['fn']:>6d} "
+            f"{r['tp']:>8d}"
+        )
+
+    return "\n".join(lines)
+
+
 def main():
     start_time = time.time()
 
@@ -319,27 +403,45 @@ def main():
         verbose_eval=10
     )
 
-    print("[6] Evaluate validation...")
+    print("[6] Predict validation probabilities...")
     val_prob = model.predict(dval)
-    val_pred = (val_prob >= 0.5).astype(np.int32)
+
+    print("[7] Search best threshold by F1 on validation...")
+    best_thr_row, top10_thresholds, all_threshold_rows = search_best_threshold(
+        y_true=y_val,
+        y_prob=val_prob,
+        thresholds=np.round(np.arange(0.01, 1.00, 0.01), 2)
+    )
+
+    best_threshold = best_thr_row["threshold"]
+
+    print(f"Best threshold: {best_threshold}")
+    print("Best threshold row:")
+    for k, v in best_thr_row.items():
+        print(f"  {k}: {v}")
+
+    print("\nTop 10 thresholds by F1:")
+    print(threshold_rows_to_text(top10_thresholds))
+
+    val_pred = (val_prob >= best_threshold).astype(np.int32)
     val_metrics = compute_metrics(y_val, val_pred, val_prob)
 
-    print(metrics_to_text("VALIDATION", val_metrics))
+    print("\n" + metrics_to_text("VALIDATION (best threshold)", val_metrics))
 
-    print("[7] Evaluate official test...")
+    print("[8] Evaluate official test with best threshold...")
     test_prob = model.predict(dtest)
-    test_pred = (test_prob >= 0.5).astype(np.int32)
+    test_pred = (test_prob >= best_threshold).astype(np.int32)
     test_metrics = compute_metrics(y_test, test_pred, test_prob)
 
-    print(metrics_to_text("TEST", test_metrics))
+    print(metrics_to_text("TEST (best threshold)", test_metrics))
 
-    print("[8] Save model...")
+    print("[9] Save model...")
     model.save_model(MODEL_OUT)
     print(f"Saved model to: {MODEL_OUT}")
 
     elapsed = time.time() - start_time
 
-    print("[9] Write report to txt...")
+    print("[10] Write report to txt...")
     with open(REPORT_OUT, "w", encoding="utf-8") as f:
         f.write("EMBER 2017 FULL TRAIN REPORT\n")
         f.write("=" * 60 + "\n\n")
@@ -352,6 +454,7 @@ def main():
         f.write(f"Test shape     : {X_test.shape}\n")
         f.write(f"Best iteration : {model.best_iteration}\n")
         f.write(f"Best score     : {model.best_score}\n")
+        f.write(f"Best threshold : {best_threshold}\n")
         f.write(f"Elapsed sec    : {elapsed:.2f}\n\n")
 
         f.write("PARAMS\n")
@@ -360,9 +463,20 @@ def main():
             f.write(f"{k}: {v}\n")
         f.write("\n")
 
-        f.write(metrics_to_text("VALIDATION", val_metrics))
+        f.write("BEST THRESHOLD ROW (SELECTED BY F1 ON VALIDATION)\n")
+        f.write("-" * 60 + "\n")
+        for k, v in best_thr_row.items():
+            f.write(f"{k}: {v}\n")
         f.write("\n")
-        f.write(metrics_to_text("TEST", test_metrics))
+
+        f.write("TOP 10 THRESHOLDS BY F1\n")
+        f.write("-" * 60 + "\n")
+        f.write(threshold_rows_to_text(top10_thresholds))
+        f.write("\n\n")
+
+        f.write(metrics_to_text("VALIDATION (best threshold)", val_metrics))
+        f.write("\n")
+        f.write(metrics_to_text("TEST (best threshold)", test_metrics))
         f.write("\n")
 
     print(f"Saved report to: {REPORT_OUT}")

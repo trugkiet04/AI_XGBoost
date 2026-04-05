@@ -1,0 +1,159 @@
+EMBER 2017 FULL TRAIN TUNED 16-TRIAL FIXED REPORT
+==========================================================================================
+
+Data directory : B:\Code\V3.0\data\ember
+Model output   : B:\Code\V3.0\data\ember\ember2017_xgb_full_gpu_tuned_16trial_fixed.json
+Random state   : 42
+Train files    : 6 files (0 -> 5)
+Train shape    : (600000, 1390)
+Train split    : X_train=(480000, 1390), X_val=(120000, 1390)
+Test shape     : (200000, 1390)
+Total trials   : 16
+Best trial     : 10
+Best iteration : 797
+Best score     : 0.9997179113888889
+Best threshold : 0.52
+Elapsed sec    : 1869.76
+
+BEST PARAMS
+------------------------------------------------------------------------------------------
+objective: binary:logistic
+eval_metric: ['logloss', 'auc']
+tree_method: hist
+device: cuda
+seed: 42
+max_depth: 8
+eta: 0.05
+subsample: 0.8
+colsample_bytree: 0.8
+min_child_weight: 1
+gamma: 0.0
+reg_alpha: 0.1
+reg_lambda: 1.0
+max_bin: 256
+
+BEST THRESHOLD ROW (SELECTED BY F1 ON VALIDATION)
+------------------------------------------------------------------------------------------
+threshold: 0.52
+accuracy: 0.9941333333333333
+precision: 0.996001606049453
+recall: 0.99225
+f1: 0.99412226359644
+tpr: 0.99225
+fpr: 0.0039833333333333335
+tnr: 0.9960166666666667
+fnr: 0.00775
+tn: 59761
+fp: 239
+fn: 465
+tp: 59535
+
+TOP 10 THRESHOLDS BY F1
+------------------------------------------------------------------------------------------
+threshold  accuracy  precision   recall       f1      tpr      fpr      tnr      fnr       tn     fp     fn       tp
+--------------------------------------------------------------------------------------------------------------------
+     0.52  0.994133   0.996002 0.992250 0.994122 0.992250 0.003983 0.996017 0.007750    59761    239    465    59535
+     0.51  0.994092   0.995786 0.992383 0.994082 0.992383 0.004200 0.995800 0.007617    59748    252    457    59543
+     0.50  0.994067   0.995586 0.992533 0.994058 0.992533 0.004400 0.995600 0.007467    59736    264    448    59552
+     0.53  0.994058   0.996051 0.992050 0.994046 0.992050 0.003933 0.996067 0.007950    59764    236    477    59523
+     0.45  0.994000   0.994808 0.993183 0.993995 0.993183 0.005183 0.994817 0.006817    59689    311    409    59591
+     0.54  0.994008   0.996200 0.991800 0.993995 0.991800 0.003783 0.996217 0.008200    59773    227    492    59508
+     0.49  0.993992   0.995370 0.992600 0.993983 0.992600 0.004617 0.995383 0.007400    59723    277    444    59556
+     0.46  0.993983   0.994907 0.993050 0.993978 0.993050 0.005083 0.994917 0.006950    59695    305    417    59583
+     0.48  0.993983   0.995205 0.992750 0.993976 0.992750 0.004783 0.995217 0.007250    59713    287    435    59565
+     0.47  0.993958   0.995023 0.992883 0.993952 0.992883 0.004967 0.995033 0.007117    59702    298    427    59573
+
+===== VALIDATION (best tuned model) =====
+Accuracy : 0.9941333333333333
+Precision: 0.996001606049453
+Recall   : 0.99225
+F1-score : 0.99412226359644
+ROC-AUC  : 0.9997179036111111
+
+Confusion Matrix:
+[[59761   239]
+ [  465 59535]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.9923    0.9960    0.9941     60000
+           1     0.9960    0.9922    0.9941     60000
+
+    accuracy                         0.9941    120000
+   macro avg     0.9941    0.9941    0.9941    120000
+weighted avg     0.9941    0.9941    0.9941    120000
+
+
+===== TEST (best tuned model) =====
+Accuracy : 0.99325
+Precision: 0.9965070864873571
+Recall   : 0.98997
+F1-score : 0.9932277871418251
+ROC-AUC  : 0.9996300275
+
+Confusion Matrix:
+[[99653   347]
+ [ 1003 98997]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.9900    0.9965    0.9933    100000
+           1     0.9965    0.9900    0.9932    100000
+
+    accuracy                         0.9932    200000
+   macro avg     0.9933    0.9932    0.9932    200000
+weighted avg     0.9933    0.9932    0.9932    200000
+
+
+ALL TRIAL SUMMARIES
+------------------------------------------------------------------------------------------
+Trial 1 | best_iteration=799 | best_score=0.9995413852777778 | threshold=0.55 | val_acc=0.9917833333333334 | val_prec=0.9943208470146754 | val_rec=0.9892166666666666 | val_f1=0.9917621896200247 | val_auc=0.9995413852777778 | val_fpr=0.00565
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.0, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 2 | best_iteration=799 | best_score=0.9995370148611111 | threshold=0.54 | val_acc=0.9918333333333333 | val_prec=0.9941393168117884 | val_rec=0.9895 | val_f1=0.9918142332108253 | val_auc=0.9995370148611111 | val_fpr=0.005833333333333334
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.0, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 3 | best_iteration=799 | best_score=0.9995405272222222 | threshold=0.54 | val_acc=0.9916666666666667 | val_prec=0.9940545972198962 | val_rec=0.98925 | val_f1=0.9916464789908946 | val_auc=0.9995405272222223 | val_fpr=0.005916666666666666
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.1, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 4 | best_iteration=799 | best_score=0.9995466429166666 | threshold=0.57 | val_acc=0.9916583333333333 | val_prec=0.9947505241090147 | val_rec=0.9885333333333334 | val_f1=0.991632183908046 | val_auc=0.9995466429166666 | val_fpr=0.005216666666666666
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.1, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 5 | best_iteration=799 | best_score=0.99952035125 | threshold=0.51 | val_acc=0.9917333333333334 | val_prec=0.9932459542597298 | val_rec=0.9902 | val_f1=0.9917206383120786 | val_auc=0.9995203512499998 | val_fpr=0.006733333333333333
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.0, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 6 | best_iteration=799 | best_score=0.9995272295833333 | threshold=0.53 | val_acc=0.9915333333333334 | val_prec=0.9936395286555972 | val_rec=0.9894 | val_f1=0.9915152324959915 | val_auc=0.9995272295833333 | val_fpr=0.006333333333333333
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.0, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 7 | best_iteration=799 | best_score=0.9995144180555555 | threshold=0.53 | val_acc=0.9915083333333333 | val_prec=0.9934905202563631 | val_rec=0.9895 | val_f1=0.9914912449168747 | val_auc=0.9995144180555557 | val_fpr=0.006483333333333333
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.1, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 8 | best_iteration=799 | best_score=0.9995339933333334 | threshold=0.5 | val_acc=0.9917583333333333 | val_prec=0.9930649554653164 | val_rec=0.9904333333333334 | val_f1=0.9917473986365267 | val_auc=0.9995339933333334 | val_fpr=0.0069166666666666664
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 6, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.1, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 9 | best_iteration=799 | best_score=0.9997021305555556 | threshold=0.46 | val_acc=0.9940083333333334 | val_prec=0.9950396659707724 | val_rec=0.9929666666666667 | val_f1=0.9940020855057351 | val_auc=0.9997021305555557 | val_fpr=0.00495
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.0, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 10 | best_iteration=797 | best_score=0.9997179113888889 | threshold=0.52 | val_acc=0.9941333333333333 | val_prec=0.996001606049453 | val_rec=0.99225 | val_f1=0.99412226359644 | val_auc=0.9997179036111111 | val_fpr=0.0039833333333333335
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.0, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 11 | best_iteration=796 | best_score=0.9997066330555555 | threshold=0.48 | val_acc=0.9938833333333333 | val_prec=0.995303202513873 | val_rec=0.99245 | val_f1=0.9938745535267216 | val_auc=0.9997060952777778 | val_fpr=0.004683333333333334
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.1, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 12 | best_iteration=799 | best_score=0.9997077834722222 | threshold=0.5 | val_acc=0.9940333333333333 | val_prec=0.9957021973979063 | val_rec=0.99235 | val_f1=0.994023272508723 | val_auc=0.9997077834722221 | val_fpr=0.0042833333333333334
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'gamma': 0.1, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 13 | best_iteration=795 | best_score=0.9996920929166667 | threshold=0.52 | val_acc=0.9939 | val_prec=0.9959001305264568 | val_rec=0.9918833333333333 | val_f1=0.993887673474841 | val_auc=0.9996920026388888 | val_fpr=0.004083333333333333
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.0, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 14 | best_iteration=799 | best_score=0.9997057997222222 | threshold=0.51 | val_acc=0.9937833333333334 | val_prec=0.9954679242758713 | val_rec=0.9920833333333333 | val_f1=0.9937727470032388 | val_auc=0.9997057997222222 | val_fpr=0.004516666666666667
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.0, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 15 | best_iteration=799 | best_score=0.9996959438888889 | threshold=0.52 | val_acc=0.9937833333333334 | val_prec=0.9956005352960856 | val_rec=0.99195 | val_f1=0.993771915177826 | val_auc=0.9996959438888888 | val_fpr=0.004383333333333334
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.1, 'reg_alpha': 0.0, 'reg_lambda': 1.0, 'max_bin': 256}
+
+Trial 16 | best_iteration=799 | best_score=0.9996917823611111 | threshold=0.49 | val_acc=0.9937666666666667 | val_prec=0.9951199946520489 | val_rec=0.9924 | val_f1=0.9937581361193631 | val_auc=0.9996917823611111 | val_fpr=0.004866666666666667
+Params: {'objective': 'binary:logistic', 'eval_metric': ['logloss', 'auc'], 'tree_method': 'hist', 'device': 'cuda', 'seed': 42, 'max_depth': 8, 'eta': 0.05, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'gamma': 0.1, 'reg_alpha': 0.1, 'reg_lambda': 1.0, 'max_bin': 256}
+

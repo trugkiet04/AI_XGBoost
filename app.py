@@ -12,7 +12,9 @@ from werkzeug.utils import secure_filename
 # =========================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-MODEL_PATH = os.path.join(BASE_DIR, "ember2017_xgb_full_gpu_manual.json")
+# Đổi sang final model vừa train xong
+# Nếu tên file thực tế khác, chỉ cần sửa lại dòng này.
+MODEL_PATH = os.path.join(BASE_DIR, "ember2017_xgb_final_model.json")
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
 
 # Hỗ trợ họ file PE của Windows
@@ -20,13 +22,13 @@ ALLOWED_EXTENSIONS = {
     "exe", "dll", "sys", "ocx", "scr", "cpl", "com", "efi", "drv", "mui"
 }
 
-# Cho phép cả file PE không có đuôi (nếu muốn)
+# Cho phép cả file PE không có đuôi
 ALLOW_EXTENSIONLESS_PE = True
 
 EXPECTED_DIM = 1390
 
-# Threshold tốt nhất tìm được từ validation theo F1
-BEST_THRESHOLD = 0.51
+# Threshold mới theo yêu cầu
+BEST_THRESHOLD = 0.52
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 200 * 1024 * 1024  # 200 MB
@@ -44,10 +46,10 @@ model.load_model(MODEL_PATH)
 # =========================
 HTML_PAGE = """
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>EMBER2017 Localhost Inference</title>
+    <title>EMBER2017 Final Model Localhost Inference</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,7 +60,7 @@ HTML_PAGE = """
             background: white;
             padding: 24px;
             border-radius: 12px;
-            max-width: 820px;
+            max-width: 860px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
         h1 { margin-top: 0; }
@@ -68,6 +70,11 @@ HTML_PAGE = """
             border: 0;
             border-radius: 8px;
             cursor: pointer;
+            background: #2563eb;
+            color: white;
+        }
+        button:hover {
+            opacity: 0.95;
         }
         .ok {
             margin-top: 20px;
@@ -108,11 +115,11 @@ HTML_PAGE = """
 </head>
 <body>
     <div class="box">
-        <h1>EMBER2017 XGBoost Localhost</h1>
+        <h1>EMBER2017 XGBoost Final Model</h1>
         <p class="meta">
             Model: <code>{{ model_path }}</code><br>
             Expected feature dim: <code>{{ expected_dim }}</code><br>
-            Best threshold (F1 on validation): <code>{{ best_threshold }}</code><br>
+            Threshold đang dùng: <code>{{ best_threshold }}</code><br>
             Supported PE extensions:
             <code>.exe, .dll, .sys, .ocx, .scr, .cpl, .com, .efi, .drv, .mui</code>
         </p>
@@ -253,6 +260,7 @@ def try_extract_with_ember(file_path: str) -> np.ndarray:
     with open(file_path, "rb") as f:
         bytez = f.read()
 
+    # Dùng feature_version=1 để khớp pipeline 1390 features hiện tại
     extractor = ember.PEFeatureExtractor(feature_version=1)
     feats = extractor.feature_vector(bytez)
 
@@ -272,7 +280,7 @@ def extract_features(file_path: str) -> np.ndarray:
     if feats.shape[1] != EXPECTED_DIM:
         raise ValueError(
             f"Feature dimension mismatch: model cần {EXPECTED_DIM} features "
-            f"nhưng extractor tạo ra {feats.shape[1]} features.\n"
+            f"nhưng extractor tạo ra {feats.shape[1]} features. "
             f"Bạn cần sửa preprocess để giống hệt lúc train."
         )
 
@@ -656,6 +664,13 @@ def index():
 
         except Exception as e:
             error = f"{str(e)}\n\n{traceback.format_exc()}"
+
+        finally:
+            if save_path and os.path.exists(save_path):
+                try:
+                    os.remove(save_path)
+                except Exception:
+                    pass
 
     return render_template_string(
         HTML_PAGE,

@@ -1,0 +1,52 @@
+EMBER 2017 FINAL MODEL REPORT
+================================================================================
+
+Data directory : B:\Code\V3.0\data\ember
+Model output   : B:\Code\V3.0\data\ember\ember2017_xgb_final_model.json
+Report output  : B:\Code\V3.0\data\ember\ember2017_xgb_final_model_report.txt
+Random state   : 42
+Train shape    : (600000, 1390)
+Test shape     : (200000, 1390)
+Fixed threshold: 0.52
+Boost rounds   : 797
+Elapsed sec    : 761.71
+
+FINAL PARAMS
+--------------------------------------------------------------------------------
+objective: binary:logistic
+eval_metric: ['logloss', 'auc']
+tree_method: hist
+device: cuda
+seed: 42
+max_depth: 8
+eta: 0.05
+subsample: 0.8
+colsample_bytree: 0.8
+min_child_weight: 1
+gamma: 0.0
+reg_alpha: 0.1
+reg_lambda: 1.0
+max_bin: 256
+
+===== TEST (final model) =====
+Accuracy : 0.992965
+Precision: 0.9966851719378143
+Recall   : 0.98922
+F1-score : 0.9929385548880558
+ROC-AUC  : 0.99965716075
+
+Confusion Matrix:
+[[99671   329]
+ [ 1078 98922]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0     0.9893    0.9967    0.9930    100000
+           1     0.9967    0.9892    0.9929    100000
+
+    accuracy                         0.9930    200000
+   macro avg     0.9930    0.9930    0.9930    200000
+weighted avg     0.9930    0.9930    0.9930    200000
+
+
